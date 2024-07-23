@@ -9,25 +9,19 @@ const Community = ({ communities }) => {
     const [posts, setPosts] = useState([]);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        axios.get(`http://localhost:5000/posts?community_id=${communityId}`)
-          .then(response => setPosts(response.data))
-          .catch(error => console.error(error));
-    }, [communityId]);
+  useEffect(() => {
+    axios.get('http://localhost:5000/posts')
+      .then(response => setPosts(response.data))
+      .catch(error => console.error(error));
+  }, []);
 
-    const goHome = () => {
-        navigate(`/`);
-    }
+  const handleNewPost = () => {
+    navigate(`/community/${communityId}/new-post`);
+  };
 
-    const community = communities.find(c => c.id === parseInt(communityId));
-
-    if (!community) {
-        return <div>커뮤니티를 찾을 수 없습니다.</div>;
-    }
-
-    const handleNewPost = () => {
-        navigate(`/community/${community.id}/new-post`);
-    };
+  const goHome = () => {
+    navigate(`/`);
+  }
 
     return (
       <div>
